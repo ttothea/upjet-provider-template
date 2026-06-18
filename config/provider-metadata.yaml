@@ -77617,7 +77617,7 @@ resources:
             - name: example
               manifest: |-
                 {
-                  "api_token": "dt0s01.AAAAAAAAAAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+                  "api_token": "<DYNATRACE_API_TOKEN>",
                   "api_url": "https://example-api-url.com",
                   "connection_point": "https://example.live.dynatrace.com:443",
                   "environment_id": "example-environment-id",
@@ -77625,7 +77625,7 @@ resources:
                   "name": "example",
                   "spring_cloud_service_id": "${azurerm_spring_cloud_service.example.id}",
                   "tenant": "example-tenant",
-                  "tenant_token": "dt0s01.AAAAAAAAAAAAAAAAAAAAAAAA.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+                  "tenant_token": "<DYNATRACE_TENANT_TOKEN>"
                 }
               references:
                 spring_cloud_service_id: azurerm_spring_cloud_service.example.id
