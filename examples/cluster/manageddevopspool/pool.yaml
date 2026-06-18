@@ -1,0 +1,23 @@
+apiVersion: manageddevopspool.azurerm.crossplane.io/v1alpha1
+kind: Pool
+metadata:
+  name: example-managed-devops-pool
+spec:
+  forProvider:
+    name: example-manageddevopspools
+    resourceGroupName: example-resources
+    location: West Europe
+    devCenterProjectId: /subscriptions/<SUBSCRIPTION_ID>/resourceGroups/example-resources/providers/Microsoft.DevCenter/projects/example
+    maximumConcurrency: 1
+    azureDevopsOrganization:
+      - organization:
+          - url: https://dev.azure.com/example
+            parallelism: 1
+    virtualMachineScaleSetFabric:
+      - skuName: Standard_D2ads_v5
+        image:
+          - wellKnownImageName: ubuntu-24.04/latest
+    statelessAgent:
+      - {}
+  providerConfigRef:
+    name: default

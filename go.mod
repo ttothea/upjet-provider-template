@@ -1,4 +1,4 @@
-module github.com/crossplane/upjet-provider-template
+module github.com/cps-az-provider/provider-azurerm
 
 go 1.25.9
 

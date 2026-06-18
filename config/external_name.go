@@ -6,7 +6,7 @@ import (
 
 var ExternalNameConfigs = map[string]config.ExternalName{
     // /subscriptions/.../resourceGroups/group1/providers/Microsoft.DevOpsInfrastructure/pools/pool1
-    "azurerm_managed_devops_pool": config.TemplatedStringAsIdentifier("name", "/subscriptions/{{ .setup.configuration.subscription_id }}/resourceGroups/{{ .parameters.resource_group_name }}/providers/Microsoft.DevOpsInfrastructure/pools/{{ .external_name }}"),
+	"azurerm_managed_devops_pool": config.TemplatedStringAsIdentifier("name", "/subscriptions/{{ .setup.configuration.subscription_id }}/resourceGroups/{{ .parameters.resource_group_name }}/providers/Microsoft.DevOpsInfrastructure/pools/{{ .external_name }}"),
 }
 
 func idWithStub() config.ExternalName {

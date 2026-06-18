@@ -9,7 +9,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "template.m.crossplane.io"
+	Group   = "azurerm.m.crossplane.io"
 	Version = "v1beta1"
 )
 

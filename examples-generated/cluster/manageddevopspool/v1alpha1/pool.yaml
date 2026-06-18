@@ -1,0 +1,24 @@
+apiVersion: manageddevopspool.azurerm.crossplane.io/v1alpha1
+kind: Pool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: manageddevopspool/v1alpha1/pool
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    azureDevopsOrganization:
+    - organization:
+      - parallelism: 1
+        url: https://dev.azure.com/example
+    devCenterProjectId: ${azurerm_dev_center_project.example.id}
+    location: ${azurerm_resource_group.example.location}
+    maximumConcurrency: 1
+    resourceGroupName: ${azurerm_resource_group.example.name}
+    statelessAgent:
+    - {}
+    virtualMachineScaleSetFabric:
+    - image:
+      - wellKnownImageName: ubuntu-24.04/buffer
+      skuName: Standard_D2ads_v5
