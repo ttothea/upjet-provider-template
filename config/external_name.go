@@ -4,11 +4,9 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/config"
 )
 
-// ExternalNameConfigs contains all external name configurations for this
-// provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": idWithStub(),
+    // /subscriptions/.../resourceGroups/group1/providers/Microsoft.DevOpsInfrastructure/pools/pool1
+    "azurerm_managed_devops_pool": config.TemplatedStringAsIdentifier("name", "/subscriptions/{{ .setup.configuration.subscription_id }}/resourceGroups/{{ .parameters.resource_group_name }}/providers/Microsoft.DevOpsInfrastructure/pools/{{ .external_name }}"),
 }
 
 func idWithStub() config.ExternalName {
