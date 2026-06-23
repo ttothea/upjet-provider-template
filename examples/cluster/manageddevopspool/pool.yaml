@@ -21,3 +21,19 @@ spec:
       - {}
   providerConfigRef:
     name: default
+
+
+apiVersion: azure.m.upbound.io/v1beta1
+kind: ResourceGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: manageddevopspool/v1alpha1/pool
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-resources
+spec:
+  forProvider:
+    location: West Europe
+  providerConfigRef:
+    name: default
+
