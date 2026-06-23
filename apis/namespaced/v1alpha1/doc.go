@@ -1,5 +1,5 @@
-// Package v1alpha1 contains the core resources of the template jet provider.
+// Package v1alpha1 contains the core resources of the cps-managedpools jet provider.
 // +kubebuilder:object:generate=true
-// +groupName=template.m.crossplane.io
+// +groupName=cps-managedpools.m.crossplane.io
 // +versionName=v1alpha1
 package v1alpha1

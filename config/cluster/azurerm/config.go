@@ -13,9 +13,6 @@ func Configure(p *ujconfig.Provider) {
 		// Use name as the external identifier
 		r.ExternalName = ujconfig.NameAsIdentifier
 		
-		// Define references for dependency management
-		r.References["dev_center_project_id"] = ujconfig.Reference{
-			Type: "azurerm_dev_center_project",
-		}
+
 	})
 }

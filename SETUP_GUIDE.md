@@ -69,8 +69,8 @@ After code generation, you'll have:
 
 ### Custom Resource Definitions (CRDs)
 
-- **Cluster-scoped**: `ManagedDevOpsPool` in group `template.crossplane.io`
-- **Namespaced**: `ManagedDevOpsPool` in group `template.m.crossplane.io`
+- **Cluster-scoped**: `ManagedDevOpsPool` in group `cps-managedpools.crossplane.io`
+- **Namespaced**: `ManagedDevOpsPool` in group `cps-managedpools.m.crossplane.io`
 
 ### Controller
 
@@ -85,7 +85,7 @@ The controller manages the lifecycle of the Managed DevOps Pool resource, includ
 Once deployed to a Kubernetes cluster, you can create a Managed DevOps Pool like this:
 
 ```yaml
-apiVersion: devopsinfra.template.crossplane.io/v1alpha1
+apiVersion: devopsinfra.cps-managedpools.crossplane.io/v1alpha1
 kind: ManagedDevOpsPool
 metadata:
   name: example-pool

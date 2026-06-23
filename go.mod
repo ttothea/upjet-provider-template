@@ -1,4 +1,4 @@
-module github.com/crossplane/upjet-provider-template
+module github.com/ttothea/provider-cps-managedpools
 
 go 1.25.9
 
