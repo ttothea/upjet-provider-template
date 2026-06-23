@@ -1,0 +1,21 @@
+package azurerm
+
+import (
+	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+)
+
+// Configure configures the Azure DevOps group for namespaced variant
+func Configure(p *ujconfig.Provider) {
+	p.AddResourceConfigurator("azurerm_managed_devops_pool", func(r *ujconfig.Resource) {
+		r.Kind = "ManagedDevOpsPool"
+		r.ShortGroup = "devopsinfra"
+		
+		// Use name as the external identifier
+		r.ExternalName = ujconfig.NameAsIdentifier
+		
+		// Define references for dependency management
+		r.References["dev_center_project_id"] = ujconfig.Reference{
+			Type: "azurerm_dev_center_project",
+		}
+	})
+}

@@ -6,8 +6,8 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
-	nullCluster "github.com/crossplane/upjet-provider-template/config/cluster/null"
-	nullNamespaced "github.com/crossplane/upjet-provider-template/config/namespaced/null"
+	azureCluster "github.com/crossplane/upjet-provider-template/config/cluster/azurerm"
+	azureNamespaced "github.com/crossplane/upjet-provider-template/config/namespaced/azurerm"
 )
 
 const (
@@ -33,7 +33,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		nullCluster.Configure,
+		azureCluster.Configure,
 	} {
 		configure(pc)
 	}
@@ -57,7 +57,7 @@ func GetProviderNamespaced() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		nullNamespaced.Configure,
+		azureNamespaced.Configure,
 	} {
 		configure(pc)
 	}
