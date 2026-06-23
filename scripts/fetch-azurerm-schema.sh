@@ -21,12 +21,12 @@ trap "rm -rf $TEMP_DIR" EXIT
 cd "$TEMP_DIR"
 
 # Create a minimal Terraform configuration to get the schema
-cat > main.tf <<EOF
+cat > main.tf <<'TFEOF'
 terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "${PROVIDER_VERSION}"
+      version = "4.78.0"
     }
   }
 }
@@ -34,10 +34,10 @@ terraform {
 provider "azurerm" {
   features {}
 }
-EOF
+TFEOF
 
 echo "Initializing Terraform..."
-terraform init -upgrade
+terraform init -upgrade -no-color 2>&1 | grep -v "^$" | head -10
 
 echo "Generating provider schema..."
 terraform providers schema -json > provider_schema.json
@@ -46,14 +46,21 @@ terraform providers schema -json > provider_schema.json
 SCHEMA_PATH="provider_schema.json"
 
 if [ -f "$SCHEMA_PATH" ]; then
-    # Use jq to extract just the azurerm provider schema
-    jq '.provider_schemas | to_entries[] | select(.key == "registry.terraform.io/hashicorp/azurerm") | .value' "$SCHEMA_PATH" > "$WORKSPACE_DIR/config/schema.json"
+    # Extract just the azurerm provider with proper format_version wrapper
+    jq '{format_version: "1.0", provider_schemas: {("registry.terraform.io/hashicorp/azurerm"): .provider_schemas["registry.terraform.io/hashicorp/azurerm"]}}' "$SCHEMA_PATH" > "$WORKSPACE_DIR/config/schema.json"
     
     if [ -f "$WORKSPACE_DIR/config/schema.json" ]; then
         echo "✓ Schema extracted to config/schema.json"
-        # Show file size to confirm
         SIZE=$(du -h "$WORKSPACE_DIR/config/schema.json" | cut -f1)
         echo "  File size: $SIZE"
+        
+        # Verify the schema has format_version
+        if jq -e '.format_version' "$WORKSPACE_DIR/config/schema.json" > /dev/null 2>&1; then
+            echo "  ✓ format_version field present"
+        else
+            echo "  ✗ format_version field missing"
+            exit 1
+        fi
     else
         echo "✗ Failed to write schema file"
         exit 1
@@ -64,4 +71,5 @@ else
 fi
 
 cd "$WORKSPACE_DIR"
-echo "Done! Next step: run 'go run cmd/generator/main.go \"\$PWD\"'"
+echo ""
+echo "✓ Done! Next step: run 'go run cmd/generator/main.go \"\$PWD\"'"
