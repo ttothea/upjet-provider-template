@@ -16,7 +16,7 @@ export TERRAFORM_PROVIDER_VERSION ?= 4.78.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-azurerm
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-azurerm_v4.78.0_x5
-export TERRAFORM_DOCS_PATH ?= docs/resources
+export TERRAFORM_DOCS_PATH ?= website/docs/r
 
 
 PLATFORMS ?= linux_amd64 linux_arm64
