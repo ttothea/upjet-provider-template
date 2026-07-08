@@ -9,10 +9,5 @@ func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("azurerm_managed_devops_pool", func(r *ujconfig.Resource) {
 		r.Kind = "ManagedDevOpsPool"
 		r.ShortGroup = "devopsinfra"
-		
-		// Use name as the external identifier
-		r.ExternalName = ujconfig.NameAsIdentifier
-		
-
 	})
 }

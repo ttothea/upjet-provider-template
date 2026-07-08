@@ -1,0 +1,65 @@
+apiVersion: devopsinfrastructure.azure.upbound.io/v1beta1
+kind: ManagedDevOpsPool
+metadata:
+  name: devex-managed-pools-crspln
+  labels:
+    app: managed-devops-pools
+    component: pool
+    suffix: crspln
+spec:
+  forProvider:
+    name: devex-managed-pools-crspln
+    location: westeurope
+    resourceGroupName: rg-devex-managed-pools-crspln
+
+    # DevCenter project — reference by selector; waits for Project CR to be Ready.
+    devCenterProjectIdSelector:
+      matchLabels:
+        component: devcenter-project
+        suffix: crspln
+
+    # ── Concurrency ──────────────────────────────────────────────────────────
+    # Rule: maximumConcurrency = poolSize (1) × number of organizations.
+    # Update this when adding orgs (see step1-add-ado-org/pool.yaml).
+    maximumConcurrency: 2   # 1 agent × 2 orgs
+
+    # ── Agent profile ────────────────────────────────────────────────────────
+    agentProfile:
+      - kind: Stateless
+
+    # ── Fabric (VM) profile ──────────────────────────────────────────────────
+    fabricProfile:
+      - kind: Vmss
+        sku:
+          - name: Standard_B1ls
+        images:
+          - wellKnownImageName: ubuntu-24.04
+            buffer: "*"
+        networkProfile:
+          # Reference subnet by selector — waits for Subnet CR to be Ready.
+          - subnetIdSelector:
+              matchLabels:
+                component: subnet
+                suffix: crspln
+
+    # ── Organization profile ─────────────────────────────────────────────────
+    # For day-2 changes (new orgs), edit step1-add-ado-org/pool.yaml and re-apply there.
+    organizationProfile:
+      - kind: AzureDevOps
+        organizations:
+          - url: https://dev.azure.com/DEV-Test
+            parallelism: 1
+          - url: https://dev.azure.com/DEV-Test2
+            parallelism: 1
+        permissionProfile:
+          - kind: Inherit
+
+    # ── Managed identity assigned to pool VMs ────────────────────────────────
+    identity:
+      - type: UserAssigned
+        # Reference identity by selector — waits for UserAssignedIdentity CR to be Ready.
+        identityIdsRefs:
+          - name: id-devex-managed-pools-crspln
+
+  providerConfigRef:
+    name: provider-azure-devopsinfrastructure
