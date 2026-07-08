@@ -266,9 +266,6 @@ type ManagedDevOpsPoolInitParameters struct {
 	// Defines how many resources can there be created at any given time. Possible values range between 1 and 10000.
 	MaximumConcurrency *float64 `json:"maximumConcurrency,omitempty" tf:"maximum_concurrency,omitempty"`
 
-	// The name of the Resource Group where the Managed DevOps Pool should exist. Changing this forces a new resource to be created.
-	ResourceGroupName *string `json:"resourceGroupName,omitempty" tf:"resource_group_name,omitempty"`
-
 	// A stateful_agent block as defined below.
 	StatefulAgent []StatefulAgentInitParameters `json:"statefulAgent,omitempty" tf:"stateful_agent,omitempty"`
 
@@ -349,8 +346,8 @@ type ManagedDevOpsPoolParameters struct {
 	MaximumConcurrency *float64 `json:"maximumConcurrency,omitempty" tf:"maximum_concurrency,omitempty"`
 
 	// The name of the Resource Group where the Managed DevOps Pool should exist. Changing this forces a new resource to be created.
-	// +kubebuilder:validation:Optional
-	ResourceGroupName *string `json:"resourceGroupName,omitempty" tf:"resource_group_name,omitempty"`
+	// +kubebuilder:validation:Required
+	ResourceGroupName *string `json:"resourceGroupName" tf:"resource_group_name,omitempty"`
 
 	// A stateful_agent block as defined below.
 	// +kubebuilder:validation:Optional
@@ -1301,7 +1298,6 @@ type ManagedDevOpsPool struct {
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.devCenterProjectId) || (has(self.initProvider) && has(self.initProvider.devCenterProjectId))",message="spec.forProvider.devCenterProjectId is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.location) || (has(self.initProvider) && has(self.initProvider.location))",message="spec.forProvider.location is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.maximumConcurrency) || (has(self.initProvider) && has(self.initProvider.maximumConcurrency))",message="spec.forProvider.maximumConcurrency is a required parameter"
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.resourceGroupName) || (has(self.initProvider) && has(self.initProvider.resourceGroupName))",message="spec.forProvider.resourceGroupName is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.virtualMachineScaleSetFabric) || (has(self.initProvider) && has(self.initProvider.virtualMachineScaleSetFabric))",message="spec.forProvider.virtualMachineScaleSetFabric is a required parameter"
 	Spec   ManagedDevOpsPoolSpec   `json:"spec"`
 	Status ManagedDevOpsPoolStatus `json:"status,omitempty"`

@@ -743,11 +743,6 @@ func (in *ManagedDevOpsPoolInitParameters) DeepCopyInto(out *ManagedDevOpsPoolIn
 		*out = new(float64)
 		**out = **in
 	}
-	if in.ResourceGroupName != nil {
-		in, out := &in.ResourceGroupName, &out.ResourceGroupName
-		*out = new(string)
-		**out = **in
-	}
 	if in.StatefulAgent != nil {
 		in, out := &in.StatefulAgent, &out.StatefulAgent
 		*out = make([]StatefulAgentInitParameters, len(*in))
