@@ -7,14 +7,7 @@ import (
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// azurerm_managed_devops_pool uses the full ARM resource ID as the identifier.
-	// Import: /subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.DevOpsInfrastructure/pools/{name}
-	"azurerm_managed_devops_pool": func() config.ExternalName {
-		en := config.TemplatedStringAsIdentifier("name",
-			"/subscriptions/{{ .setup.configuration.subscription_id }}/resourceGroups/{{ .parameters.resource_group_name }}/providers/Microsoft.DevOpsInfrastructure/pools/{{ .external_name }}")
-		en.DisableNameInitializer = true
-		return en
-	}(),
+	"azurerm_managed_devops_pool": config.TemplatedStringAsIdentifier("name", "/subscriptions/{{ .setup.configuration.subscription_id }}/resourceGroups/{{ .parameters.resource_group_name }}/providers/Microsoft.DevOpsInfrastructure/pools/{{ .external_name }}"),
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
