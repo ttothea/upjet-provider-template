@@ -2,6 +2,7 @@ apiVersion: devopsinfra.cps-managedpools.m.crossplane.io/v1alpha1
 kind: ManagedDevOpsPool
 metadata:
   annotations:
+    crossplane.io/external-name: example
     meta.upbound.io/example-id: devopsinfra/v1alpha1/manageddevopspool
   labels:
     testing.upbound.io/example-name: example
