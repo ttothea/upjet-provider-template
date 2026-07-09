@@ -9,7 +9,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "template.crossplane.io"
+	Group   = "cps-managedpools.crossplane.io"
 	Version = "v1beta1"
 )
 
